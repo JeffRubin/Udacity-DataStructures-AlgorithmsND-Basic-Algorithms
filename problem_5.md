@@ -6,10 +6,18 @@ implementation of autocomplete via implementation of trie find() for a specified
 trie node suffixes() given the prefix (recursive search for suffixes that are the autocompletions).
 
 ## Complexity: Time
-O(n) to find all the suffixes since to find these essentially have to traverse the tree formed by the trie; traversing a
-non-orderd tree has a time complexity of O(n) since have to visit all nodes.
+* Insert/Find: O(n) where n is the number of characters in the word since, in the worst case, have to traverse all
+characters of the word to insert the whole word or search for it.
+* Autocomplete: O(n*m) where n is the number of words that begin with the specified prefix and m is the average length
+of each of those words since have to recurse through all nodes of a tree starting with the node at the specified prefix.
+Assuming n >> m this is O(n).
 
 ## Complexity: Space
-O(n) to find all the suffixes since to find all the suffixes requires a recursive call of suffixes() which
-essentially traverses a tree formed by the trie.  In the worst case that the tree is very unbalanced the depth of the
-recursive call stack is thus O(n).
+* Create Trie: O(n*m) where n is the number of words represented in the trie and m is the average length of each word.
+Assuming n >> m this is O(n).
+* Insert Word: O(n) where n is the number of characters in the word since, in the worst case, have to insert all
+characters of the word into the trie.
+* Find A Word: O(1) since only need to keep track of the current trie node while searching.  A node is also returned
+as a result of the search which is also O(1).
+* Autocomplete: O(n) where n is the maximum length of a word starting with the specified prefix since this is the 
+maximum depth of the call stack for the recursive calls to find all the suffixes.
